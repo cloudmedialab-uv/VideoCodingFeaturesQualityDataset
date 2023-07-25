@@ -15,7 +15,7 @@ If you use part of or all the datasets, please cite that paper.
 
 ## Sample comands used to extract features and compute VQA metrics
 
-In the following we assume that you have the ```wget```, ```ffmpeg``` and ```siti``` tools installed. Here are the steps you have to follow with the aim of extracting features and computing VQA metrics for one 4k video (to illustrate each of these steps, we will use the video file ```Vlog_2160P-19f9.mkv``` from the ```YouTube User Generated Content (UGC) dataset```).
+In the following we assume that you have the ```wget```, ```ffmpeg``` and ```siti``` tools installed. Here are the steps you have to follow with the aim of extracting features and computing VQA metrics for one 4k video (to illustrate each of these steps, we will use the video file ```Vlog_2160P-19f9.mkv``` from the ```YouTube User Generated Content dataset```).
 
 ### Download sample video
 
@@ -65,7 +65,102 @@ Note: file ```vmaf_v0.6.1.json``` is supposed to be in the same directory than c
 
 ## Dataset handling
 
-https://doi.org/10.6084/m9.figshare.c.6572563.v1
+> :exclamation: Lo de bajarse archivos desde figshare con wget no es trivial ya que le asignan un número al archivo que hay que conocer. Mirad este ejemplo: https://doi.org/10.6084/m9.figshare.c.6572563.v1
+
+### Combining datasets with matching resolution
+
+Once we have downloaded the datasets, it is possible to combine the features with the qualities using the ```pandas``` tool in Python.
+
+Let's consider, for example, that we want to relate the features and quality metrics obtained from segments with a resolution of 1080. The following script would need to be executed:
+
+```python
+import pandas as pd
+
+dfFeatures = pd.read_csv('Features_1080.csv')
+dfQuality = pd.read_csv('Quality_1080.csv')
+df = pd.merge(dfFeatures, dfQuality)
+```
+
+A table with 153277 rows and 49 columns is obtained, which relates the features of a segment with the metrics obtained for each CRF used in the encoding of that segment.
+
+Here, the first 5 rows of the combined table can be seen, displaying the same features related to the metrics obtained with **CRF values 7, 8, 9, 10, and 11** for the **first** segment (corresponding to chunk 0) of the video **AncientThought**.
+
+|    | file           |   chunk |   res |   Ymean |    Ystd |    Ykurt |    Yskew |   Umean |    Ustd |    Ukurt |    Uskew |   Vmean |    Vstd |    Vkurt |     Vskew |   SATmean |   SATstd |   SATkurt |   SATskew |   HUEmean |   HUEstd |   HUEkurt |   HUEskew |   nEYmean |   nEYstd |   nEYkurt |   nEYskew |   nEUmean |   nEUstd |   nEUkurt |   nEUskew |   nEVmean |   nEVstd |   nEVkurt |   nEVskew |   sceneChange |     fr |   TImean |   TIstd |    TIkurt |   TIskew |   SImean |   SIstd |    SIkurt |   SIskew |   crf |   vmafmean |   psnrmean |   ssimmean |
+|---:|:---------------|--------:|------:|--------:|--------:|---------:|---------:|--------:|--------:|---------:|---------:|--------:|--------:|---------:|----------:|----------:|---------:|----------:|----------:|----------:|---------:|----------:|----------:|----------:|---------:|----------:|----------:|----------:|---------:|----------:|----------:|----------:|---------:|----------:|----------:|--------------:|-------:|---------:|--------:|----------:|---------:|---------:|--------:|----------:|---------:|------:|-----------:|-----------:|-----------:|
+|  0 | AncientThought |       0 |  1080 | 40.5577 | 16.7694 | -1.19587 | 0.269313 | 122.584 | 5.10596 | -1.19084 | -0.17363 | 131.732 | 2.66463 | -1.64651 | -0.134091 |   7.74845 |  5.64675 |  -1.30153 |  0.105061 |   182.221 |  19.7049 |   -1.5566 |  0.363657 |  0.549891 | 0.181782 |  -1.59896 | -0.346912 |  0.436096 | 0.143368 |  -1.64158 | -0.312752 |  0.376922 | 0.131878 |  -1.59926 |    -0.491 |             0 | 23.976 |   16.267 |   11.88 | -0.530314 | 0.302004 |    8.131 |   2.201 | 0.0896343 | -1.05176 |     7 |    98.291  |    55.5511 |   0.999819 |
+|  1 | AncientThought |       0 |  1080 | 40.5577 | 16.7694 | -1.19587 | 0.269313 | 122.584 | 5.10596 | -1.19084 | -0.17363 | 131.732 | 2.66463 | -1.64651 | -0.134091 |   7.74845 |  5.64675 |  -1.30153 |  0.105061 |   182.221 |  19.7049 |   -1.5566 |  0.363657 |  0.549891 | 0.181782 |  -1.59896 | -0.346912 |  0.436096 | 0.143368 |  -1.64158 | -0.312752 |  0.376922 | 0.131878 |  -1.59926 |    -0.491 |             0 | 23.976 |   16.267 |   11.88 | -0.530314 | 0.302004 |    8.131 |   2.201 | 0.0896343 | -1.05176 |     8 |    98.1204 |    54.8735 |   0.999778 |
+|  2 | AncientThought |       0 |  1080 | 40.5577 | 16.7694 | -1.19587 | 0.269313 | 122.584 | 5.10596 | -1.19084 | -0.17363 | 131.732 | 2.66463 | -1.64651 | -0.134091 |   7.74845 |  5.64675 |  -1.30153 |  0.105061 |   182.221 |  19.7049 |   -1.5566 |  0.363657 |  0.549891 | 0.181782 |  -1.59896 | -0.346912 |  0.436096 | 0.143368 |  -1.64158 | -0.312752 |  0.376922 | 0.131878 |  -1.59926 |    -0.491 |             0 | 23.976 |   16.267 |   11.88 | -0.530314 | 0.302004 |    8.131 |   2.201 | 0.0896343 | -1.05176 |     9 |    97.8994 |    54.2277 |   0.999724 |
+|  3 | AncientThought |       0 |  1080 | 40.5577 | 16.7694 | -1.19587 | 0.269313 | 122.584 | 5.10596 | -1.19084 | -0.17363 | 131.732 | 2.66463 | -1.64651 | -0.134091 |   7.74845 |  5.64675 |  -1.30153 |  0.105061 |   182.221 |  19.7049 |   -1.5566 |  0.363657 |  0.549891 | 0.181782 |  -1.59896 | -0.346912 |  0.436096 | 0.143368 |  -1.64158 | -0.312752 |  0.376922 | 0.131878 |  -1.59926 |    -0.491 |             0 | 23.976 |   16.267 |   11.88 | -0.530314 | 0.302004 |    8.131 |   2.201 | 0.0896343 | -1.05176 |    10 |    97.682  |    53.6968 |   0.999665 |
+|  4 | AncientThought |       0 |  1080 | 40.5577 | 16.7694 | -1.19587 | 0.269313 | 122.584 | 5.10596 | -1.19084 | -0.17363 | 131.732 | 2.66463 | -1.64651 | -0.134091 |   7.74845 |  5.64675 |  -1.30153 |  0.105061 |   182.221 |  19.7049 |   -1.5566 |  0.363657 |  0.549891 | 0.181782 |  -1.59896 | -0.346912 |  0.436096 | 0.143368 |  -1.64158 | -0.312752 |  0.376922 | 0.131878 |  -1.59926 |    -0.491 |             0 | 23.976 |   16.267 |   11.88 | -0.530314 | 0.302004 |    8.131 |   2.201 | 0.0896343 | -1.05176 |    11 |    97.4401 |    53.1875 |   0.999586 |
+
+### Shape of the combined tables according to the resolution
+
+If we want to determine the number of rows we will obtain when combining the feature datasets with the metric datasets for each resolution, we can execute the following script:
+
+```python
+import pandas as pd
+
+for res in [240, 360, 480, 720, 1080]:
+    dfFeat = pd.read_csv(f'Features_{res}.csv')
+    dfQual = pd.read_csv(f'Quality_{res}.csv')
+    df = pd.merge(dfFeat, dfQual)
+    # We prevent the loss of the combined tables just generated
+    df.to_csv(f'Merged_{res}.csv', index=False)
+    print(f'{res}: Features {dfFeat.shape} - Quality {dfQual.shape} - Merged {df.shape}')
+```
+
+The result obtained by running this code is:
+
+```
+240: Features (4065, 45) - Quality (154544, 7) - Merged (154544, 49)
+360: Features (4065, 45) - Quality (168083, 7) - Merged (168083, 49)
+480: Features (4065, 45) - Quality (173729, 7) - Merged (173729, 49)
+720: Features (4065, 45) - Quality (172451, 7) - Merged (172451, 49)
+1080: Features (4065, 45) - Quality (153277, 7) - Merged (153277, 49)
+```
+
+In the case of using datasets where entries with NaN values have been removed, the result would be different:
+
+Here is the script to execute:
+
+```python
+import pandas as pd
+
+for res in [240, 360, 480, 720, 1080]:
+    dfFeat = pd.read_csv(f'Features_{res}_withoutNaN.csv')
+    dfQual = pd.read_csv(f'Quality_{res}_withoutNaN.csv')
+    df = pd.merge(dfFeat, dfQual)
+    # We prevent the loss of the combined tables just generated
+    df.to_csv(f'Merged_{res}_withoutNaN.csv', index=False)
+    print(f'{res}: Features {dfFeat.shape} - Quality {dfQual.shape} - Merged {df.shape}')
+```
+
+And here the new outcome:
+
+```
+240: Features (3929, 45) - Quality (149123, 7) - Merged (149123, 49)
+360: Features (3929, 45) - Quality (162205, 7) - Merged (162205, 49)
+480: Features (3928, 45) - Quality (167625, 7) - Merged (167625, 49)
+720: Features (3928, 45) - Quality (166294, 7) - Merged (166294, 49)
+1080: Features (3928, 45) - Quality (147112, 7) - Merged (147112, 49)
+```
+
+### Combining all datasets into a single table
+
+It is possible to create a unified table that combines all datasets from all resolutions with the following script (example for datasets with NaN values):
+
+```python
+dfslist = []
+for res in [240, 360, 480, 720, 1080]:
+    dfFeat = pd.read_csv(f'Features_{res}.csv')
+    dfQual = pd.read_csv(f'Quality_{res}.csv')
+    df = pd.merge(dfFeat, dfQual)
+    dfslist.append(df)
+
+dffinal = pd.concat(dfslist, ignore_index=True)
+```
+
+The resulting final table in this case comprises 822,084 rows and 49 columns.
 
 ## Dataset statistical analysis and plots
 
