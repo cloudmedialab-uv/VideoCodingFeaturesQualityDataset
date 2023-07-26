@@ -19,13 +19,13 @@ Characteristics such as mean, median, standard deviation, and visual representat
 
 #### Quality datasets
 
-- [Quality 1080 (without NaN values)](Quality_1080_statstfdv.html)
+- [Quality 1080 (with NaN values)](Quality_1080_statstfdv.html)
 - [Quality 1080 (without NaN values)](Quality_1080_withoutNaN_statstfdv.html) 
-- [Quality 720 (without NaN values)](Quality_720_statstfdv.html)
+- [Quality 720 (with NaN values)](Quality_720_statstfdv.html)
 - [Quality 720 (without NaN values)](Quality_720_withoutNaN_statstfdv.html)
-- [Quality 480 (without NaN values)](Quality_480_statstfdv.html)
+- [Quality 480 (with NaN values)](Quality_480_statstfdv.html)
 - [Quality 480 (without NaN values)](Quality_480_withoutNaN_statstfdv.html)
-- [Quality 360 (without NaN values)](Quality_360_statstfdv.html)             
+- [Quality 360 (with NaN values)](Quality_360_statstfdv.html)             
 - [Quality 360 (without NaN values)](Quality_360_withoutNaN_statstfdv.html)
-- [Quality 240 (without NaN values)](Quality_240_statstfdv.html)             
+- [Quality 240 (with NaN values)](Quality_240_statstfdv.html)             
 - [Quality 240 (without NaN values)](Quality_240_withoutNaN_statstfdv.html)  
