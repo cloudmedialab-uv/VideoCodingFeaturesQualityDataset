@@ -1,4 +1,4 @@
-# FEATURES and QUALITY METRICS DATASETS for VIDEO CODING in DASH
+# FEATURES AND QUALITY METRICS DATASETS for VIDEO CODING in DASH
 
 This repository is related to the paper "Features and Quality Metrics Datasets for Video Coding in DASH" submitted to the journal "Scientific Data" and comprises sample Bash source code employed to extract features and compute VQA metrics from 4k videos, with the objective of creating datasets that are publicly available on figshare. Besides, we also provide sample Python source code for the combination and processing of the datasets. And finally, we present web pages displaying figures and statistical analyses conducted with all the datasets.
 
@@ -15,7 +15,7 @@ If you use part of or all the datasets, please cite that paper.
 
 ## Sample comands used to extract features and compute VQA metrics
 
-In the following we assume that you have the [```ffmpeg```](https://ffmpeg.org) and [```siti```](https://github.com/slhck/siti) tools installed. Here are the steps you have to follow with the aim of extracting features and computing VQA metrics for one 4k video (to illustrate each of these steps, we will use the video file ```Vlog_2160P-19f9.mkv``` from the [```YouTube User Generated Content dataset```](https://media.withyoutube.com)).
+In the following we assume that you have the [```ffmpeg```](https://ffmpeg.org) and [```siti```](https://github.com/slhck/siti) tools installed. The steps to extract features and to compute VQA metrics for one 4k video (we will use a sample video file ```Vlog_2160P-19f9.mkv``` from the [```YouTube User Generated Content dataset```](https://media.withyoutube.com)) are: 
 
 ### 1) Download sample video
 
@@ -43,7 +43,7 @@ ffmpeg -hide_banner -i "Vlog_2160P-19f9_3840x2160_crf0.mp4" -filter_complex "[0:
 
 ### 4) Features extraction
 
-By utilizing the ffprobe tool with the signalstats and entropy filters, as well as employing the Python siti package v1.4.5 in accordance with 2021 ITU-T Recommendation P.910, we extract a collection of features from all the chunks created in the previous step and save them into json files. Here we show the commands for the first chunk of the video in 240 resolution:
+By utilizing the ffprobe tool with the signalstats and entropy filters, as well as employing the Python siti package v1.4.5 in accordance with 2021 ITU-T Recommendation P.910, we extract a collection of features from all the chunks created in the previous step and save them into json files. The commands for the first chunk of the video in 240 resolution are:
 
 ```bash
 ffprobe -hide_banner -f lavfi -i "movie='Vlog_2160P-19f9_426x240_chunk0000_crf0.mp4',entropy,scdet,signalstats=stat=tout+vrep+brng" -show_frames -show_streams -select_streams v -of json > "Vlog_2160P-19f9_426x240_chunk0000_crf0.mp4.stat.json"
@@ -53,7 +53,7 @@ siti -of json -q -f "Vlog_2160P-19f9_426x240_chunk0000_crf0.mp4" > "Vlog_2160P-1
 
 ### 5) Video segments coding and VQA calculation
 
-Finally, segments are encoded with different CRF values to obtain the VMAF, PSNR and SSIM quality metrics using the ffmpeg + libvmaf v2.3.0 tool. Here are the commands for the first chunk of the video in 240 resolution and CRF set to 30 (results are saved in json file):
+Finally, segments are encoded with different CRF values to obtain the VMAF, PSNR and SSIM quality metrics using the ffmpeg + libvmaf v2.3.0 tool. The commands for the first chunk of the video in 240 resolution and CRF set to 30 (results are saved in json file) are:
 
 ```bash
 ffmpeg -hide_banner -y -i "Vlog_2160P-19f9_426x240_chunk0000_crf0.mp4" -c:v libx264 -crf 30 -force_key_frames "expr:gte(t,n_forced*2)" -b:v 0 -threads 24 "Vlog_2160P-19f9_426x240_chunk0000_x264crf30.mp4"
@@ -91,7 +91,7 @@ df = pd.merge(dfFeatures, dfQuality)
 
 A table with 153277 rows and 49 columns is obtained, which relates the features of a segment with the metrics obtained for each CRF used in the encoding of that segment.
 
-Here, the first 5 rows of the combined table can be seen, displaying the features of the **first** segment (corresponding to chunk 0) of the video **AncientThought** related to the metrics obtained with **CRF values 7, 8, 9, 10, and 11**:
+The next table shows the first 5 rows of the combined table displaying the features of the **first** segment (corresponding to chunk 0) of the video **AncientThought** related to the metrics obtained with **CRF values 7, 8, 9, 10, and 11**:
 
 |    | file           |   chunk |   res |   Ymean |    Ystd |    Ykurt |    Yskew |   Umean |    Ustd |    Ukurt |    Uskew |   Vmean |    Vstd |    Vkurt |     Vskew |   SATmean |   SATstd |   SATkurt |   SATskew |   HUEmean |   HUEstd |   HUEkurt |   HUEskew |   nEYmean |   nEYstd |   nEYkurt |   nEYskew |   nEUmean |   nEUstd |   nEUkurt |   nEUskew |   nEVmean |   nEVstd |   nEVkurt |   nEVskew |   sceneChange |     fr |   TImean |   TIstd |    TIkurt |   TIskew |   SImean |   SIstd |    SIkurt |   SIskew |   crf |   vmafmean |   psnrmean |   ssimmean |
 |---:|:---------------|--------:|------:|--------:|--------:|---------:|---------:|--------:|--------:|---------:|---------:|--------:|--------:|---------:|----------:|----------:|---------:|----------:|----------:|----------:|---------:|----------:|----------:|----------:|---------:|----------:|----------:|----------:|---------:|----------:|----------:|----------:|---------:|----------:|----------:|--------------:|-------:|---------:|--------:|----------:|---------:|---------:|--------:|----------:|---------:|------:|-----------:|-----------:|-----------:|
@@ -129,7 +129,7 @@ The result obtained by running this code is:
 
 In the case of using datasets where entries with NaN values have been removed, the result would be different.
 
-Here is the script to execute:
+This is the script:
 
 ```python
 import pandas as pd
@@ -143,7 +143,7 @@ for res in [240, 360, 480, 720, 1080]:
     print(f'{res}: Features {dfFeat.shape} - Quality {dfQual.shape} - Merged {df.shape}')
 ```
 
-And here the new outcome:
+And this the new outcome:
 
 ```
 240: Features (3929, 45) - Quality (149123, 7) - Merged (149123, 49)
