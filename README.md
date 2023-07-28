@@ -67,6 +67,8 @@ Note: file ```vmaf_v0.6.1.json``` is supposed to be in the same directory than c
 
 ### 1) Downloading datasets
 
+> :exclamation: Final link will be updated when paper will be accepted
+
 Datasets can be downloaded from https://doi.org/xx.xxxx/m9.figshare.c.xxxxxxx.v1.
 
 For example if we want to download the features dataset of segments with a resolution of 720, we have to execute:
