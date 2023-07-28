@@ -1,4 +1,4 @@
-# FEATURES AND QUALITY METRICS DATASETS for VIDEO CODING in DASH
+# FEATURES AND QUALITY METRICS DATASETS FOR VIDEO CODING IN DASH
 
 This repository is related to the paper "Features and Quality Metrics Datasets for Video Coding in DASH" submitted to the journal "Scientific Data" and comprises sample Bash and Python source code. The Bash scripts are employed to extract features and compute VQA metrics from 4k videos, with the objective of creating datasets that are publicly available on figshare. The sample Python source code show how to combine and process the datasets. Finally, we present web pages displaying figures and statistical analyses conducted with all the datasets.
 
