@@ -67,7 +67,7 @@ Note: file ```vmaf_v0.6.1.json``` is supposed to be in the same directory than c
 
 ### 1) Downloading datasets
 
-> :exclamation: Final link will be updated when paper will be accepted
+> :exclamation: Links will be updated upon paper acceptance
 
 Datasets can be downloaded from https://doi.org/xx.xxxx/m9.figshare.c.xxxxxxx.v1.
 
