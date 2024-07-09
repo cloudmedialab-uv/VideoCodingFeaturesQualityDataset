@@ -81,14 +81,14 @@ Note: files ```vmaf_v0.6.1.json``` and ```vmaf_4k_v0.6.1.json``` are supposed to
 
 ### 1) Downloading datasets
 
-> :exclamation: Links will be updated upon paper acceptance
+<!-- >> :exclamation: Links will be updated upon paper acceptance-->
 
-Datasets can be downloaded from https://doi.org/xx.xxxx/m9.figshare.c.xxxxxxx.v1.
+Datasets can be downloaded from https://doi.org/10.6084/m9.figshare.c.6764328.v1.
 
-For example if we want to download the features dataset of segments with a resolution of 720, we have to execute:
+For example if we want to download the features dataset of segments with a resolution of 720, we can download the file directly from the above link or we can execute:
 
 ```bash
-wget -O Features_720.csv https://springernature.figshare.com/ndownloader/files/xxxxxxxx
+wget -O Features_720.csv https://springernature.figshare.com/ndownloader/files/41742810
 ```
 
 ### 2) Combining datasets with matching resolution
